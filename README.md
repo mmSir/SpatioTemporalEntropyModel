@@ -1,20 +1,23 @@
-# GainedVAE
+# SpatioTemporalEntropyModel
 
-A Pytorch Implementation of a continuously rate adjustable learned image compression framework, Gained Variational Autoencoder(GainedVAE).
+A Pytorch Implementation of a SpatioTemporalEntropyModel (STEM) for end-to-end leaned video compression.
 
 *Note that It Is Not An Official Implementation Code.*
 
+Differences from the original paper include but are not limited to the following:
+* channels are fewer than the original paper.
+* The Encoder/Decoder in original paper consists of conditional conv[<sup>1</sup>](#refer-anchor-1) to support various rate in one single model. And the architecture is the same 
+as [<sup>2</sup>](#refer-anchor-2). However, I only use the single rate Encoder/Decoder with the same architecture as [<sup>2</sup>](#refer-anchor-2)
+
 More details can be found in the following paper:
 
->[Asymmetric Gained Deep Image Compression With Continuous Rate Adaptation.](https://openaccess.thecvf.com/content/CVPR2021/html/Cui_Asymmetric_Gained_Deep_Image_Compression_With_Continuous_Rate_Adaptation_CVPR_2021_paper.html)  
->Huawei Technologies, CVPR 2021  
->Ze Cui, Jing Wang, Shangyin Gao, Tiansheng Guo, Yihui Feng, Bo Bai
+>[Spatiotemporal Entropy Model is All You Need for Learned Video Compression](https://arxiv.org/abs/2104.06083)  
+>Alibaba Group, arxiv 2021.4.13  
+>Zhenhong Sun, Zhiyu Tan, Xiuyu Sun, Fangyi Zhang, Dongyang Li, Yichen Qian, Hao Li
 
-Todo:
-Reproduce Implementation of following paper:
->[INTERPOLATION VARIABLE RATE IMAGE COMPRESSION](https://arxiv.org/abs/2109.09280)  
->Alibaba Group, arxiv 2021.9.20  
->Zhenhong Sun, Zhiyu Tan, Xiuyu Sun, Fangyi Zhang, Yichen Qian, Dongyang Li, Hao Li
+ToDo:
+1. various rate model training and evaluation.
+
 # Environment
 
 * Python == 3.7.10
@@ -22,18 +25,107 @@ Reproduce Implementation of following paper:
 * CompressAI
 
 # Dataset
-I use a part of the OpenImages Dataset to train the models (train06, train07, train08, about 54w images). You can download from here[Download OpenImages](https://www.appen.com.cn/datasets/open-images-annotated-with-bounding-boxes/).
-Maybe train08 (14w images) is enough.
+I use the Vimeo90k Septuplet Dataset to train the models. The Dataset contains about 64612 training sequences and 7824 testing sequences. All sequence contains 7 frames.
 
+The train dataset folder structure is as
+```
+.dataset/vimeo_septuplet/
+│  sep_testlist.txt
+│  sep_trainlist.txt
+│  vimeo_septuplet.txt
+│  
+├─sequences
+│  ├─00001
+│  │  ├─0001
+│  │  │      f001.png
+│  │  │      f002.png
+│  │  │      f003.png
+│  │  │      f004.png
+│  │  │      f005.png
+│  │  │      f006.png
+│  │  │      f007.png
+│  │  ├─0002
+│  │  │      f001.png
+│  │  │      f002.png
+│  │  │      f003.png
+│  │  │      f004.png
+│  │  │      f005.png
+│  │  │      f006.png
+│  │  │      f007.png
+...
+```
+
+I evaluate the model on UVG & HEVC TEST SEQUENCE Dataset.
+The test dataset folder structure is as
+```
+.dataset/UVG/
+├─PNG
+│  ├─Beauty
+│  │      f001.png
+│  │      f002.png
+│  │      f003.png
+...
+│  │      f598.png
+│  │      f599.png
+│  │      f600.png
+│  │      
+│  ├─HoneyBee
+│  │      f001.png
+│  │      f002.png
+│  │      f003.png
+...
+│  │      f598.png
+│  │      f599.png
+│  │      f600.png
+│  │     
+...
+```
+```
+.dataset/HEVC/
+├─BasketballDrill
+│      f001.png
+│      f002.png
+│      f003.png
+...
+│      f098.png
+│      f099.png
+│      f100.png
+│      
+├─BasketballDrive
+│      f001.png
+│      f002.png
+...
+```
 
 # Train Your Own Model
->python3 trainGain.py -d /path/to/your/image/dataset/ --epochs 200 -lr 1e-4 --batch-size 16 --model-save /path/to/your/model/save/dir --cuda
+>python3 trainSTEM.py -d /path/to/your/image/dataset/vimeo_septuplet --lambda 0.01 -lr 1e-4 --batch-size 16 --model-save /path/to/your/model/save/dir --cuda --checkpoint /path/to/your/iframecompressor/checkpoint.pth.tar
+
+# Evaluate Your Own Model
+>python3 evalSTEM.py --checkpoint /path/to/your/iframecompressor/checkpoint.pth.tar --entropy-model-path /path/to/your/stem/checkpoint.pth.tar
+
+Currently only support evaluation on UVG & HEVC TEST SEQUENCE Dataset.
+
 # Result
+| 测试数据集UVG | PSNR | BPP | PSNR in paper | BPP in paper |
+| --- | --- | --- | --- |
+| SpatioTemporalPriorModel_Res | 36.104 |  0.087 | 35.95 | 0.080 |
+| SpatioTemporalPriorModel | 36.053 |  0.080 | 35.95 | 0.082 |
+| SpatioTemporalPriorModelWithoutTPM | None |  None | 35.95 | 0.100 |
+| SpatioTemporalPriorModelWithoutSPM | 36.066 |  0.080 | 35.95 | 0.087 |
+| SpatioTemporalPriorModelWithoutSPMTPM | 36.021 |  0.141 | 35.95 | 0.123 |
+
+PSNR in paper & BPP in paper is estimated from Figure 6 in the original paper.
 
 # Acknowledgement
 
-The framework is based on CompressAI, I add the model in compressai.models.gain, compressai.models.gain_utils.  
-And trainGain/trainGain.py is modified with reference to compressai_examples/train.py.
+The framework is based on CompressAI, I add the model in compressai.models.spatiotemporalpriors.
+And trainSTEM.py/evalSTEM.py is modified with reference to compressai_examples
+
+# Reference
+<div id="refer-anchor-1"></div>
+[1] [Variable Rate Deep Image Compression With a Conditional Autoencoder](https://openaccess.thecvf.com/content_ICCV_2019/html/Choi_Variable_Rate_Deep_Image_Compression_With_a_Conditional_Autoencoder_ICCV_2019_paper.html) 
+<div id="refer-anchor-2"></div>
+[2] [Joint Autoregressive and Hierarchical Priors for Learned Image Compression](https://arxiv.org/abs/1809.02736) 
 
 # Contact
 Feel free to contact me if there is any question about the code or to discuss any problems with image and video compression. (mxh_wine@qq.com)
