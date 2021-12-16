@@ -7,7 +7,7 @@ A Pytorch Implementation of a SpatioTemporalEntropyModel (STEM) for end-to-end l
 Differences from the original paper include but are not limited to the following:
 * Channels are fewer than the original paper.
 * The Encoder/Decoder in original paper consists of conditional conv[<sup>1</sup>](#refer-anchor-1) to support various rate in one single model. And the architecture is the same 
-as [<sup>2</sup>](#refer-anchor-2). However, I only use the single rate Encoder/Decoder with the same architecture as [<sup>2</sup>](#refer-anchor-2)
+as [2][<sup>2</sup>](#refer-anchor-2). However, I only use the single rate Encoder/Decoder with the same architecture as [2][<sup>2</sup>](#refer-anchor-2)
 
 More details can be found in the following paper:
 
