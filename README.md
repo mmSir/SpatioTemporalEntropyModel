@@ -64,7 +64,7 @@ The test dataset folder structure is as
 │  │      f001.png
 │  │      f002.png
 │  │      f003.png
-...
+│  │      ...
 │  │      f598.png
 │  │      f599.png
 │  │      f600.png
@@ -73,12 +73,12 @@ The test dataset folder structure is as
 │  │      f001.png
 │  │      f002.png
 │  │      f003.png
-...
+│  │      ...
 │  │      f598.png
 │  │      f599.png
 │  │      f600.png
 │  │     
-...
+│  │      ...
 ```
 ```
 .dataset/HEVC/
@@ -86,7 +86,7 @@ The test dataset folder structure is as
 │      f001.png
 │      f002.png
 │      f003.png
-...
+│      ...
 │      f098.png
 │      f099.png
 │      f100.png
@@ -94,11 +94,12 @@ The test dataset folder structure is as
 ├─BasketballDrive
 │      f001.png
 │      f002.png
-...
+│      ...
 ```
-
 # Train Your Own Model
 >python3 trainSTEM.py -d /path/to/your/image/dataset/vimeo_septuplet --lambda 0.01 -lr 1e-4 --batch-size 16 --model-save /path/to/your/model/save/dir --cuda --checkpoint /path/to/your/iframecompressor/checkpoint.pth.tar
+
+I tried to train with Mean-Scale Hyperprior / Joint Autoregressive Hierarchical Priors / Cheng2020Attn in CompressAI library and find that a powerful I Frame Compressor does have great performance benefits.
 
 # Evaluate Your Own Model
 >python3 evalSTEM.py --checkpoint /path/to/your/iframecompressor/checkpoint.pth.tar --entropy-model-path /path/to/your/stem/checkpoint.pth.tar
@@ -117,9 +118,14 @@ Currently only support evaluation on UVG & HEVC TEST SEQUENCE Dataset.
 
 PSNR in paper & BPP in paper is estimated from Figure 6 in the original paper.
 
+It seems that the context model SPM has no good effect in my experiments.
+
+I look forward to receiving more feedback on the test results, and feel free to share your test results!
+
 # More Informations About Various Rate Model Training
 As stated in the original paper, they use a variable-rate auto-encoder to support various rate in one single model. I tried to train with [GainedVAE](https://github.com/mmSir/GainedVAE), which is also a various rate model. Some point can achieve comparable r-d performance while others may degrade. What's more, the interpolation result could have more performance degradation cases.
-Probably we need Loss Modulator[<sup>3</sup>](#refer-anchor-3) for various rate model training. Read Oren Ripple's ICCV 2021 paper for more details.
+
+Probably we need Loss Modulator[<sup>3</sup>](#refer-anchor-3) for various rate model training. Read Oren Ripple's ICCV 2021 paper[<sup>3</sup>](#refer-anchor-3) for more details.
 
 
 # Acknowledgement
