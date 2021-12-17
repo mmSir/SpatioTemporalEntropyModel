@@ -1,19 +1,19 @@
 # Spatio-Temporal Entropy Model
 
-A Pytorch Implementation of a Spatio-Temporal Entropy Model (STEM) for end-to-end leaned video compression.
-
-*Note that It Is Not An Official Implementation Code.*
-
-Differences from the original paper include but are not limited to the following:
-* Channels are fewer than the original paper.
-* The Encoder/Decoder in original paper consists of conditional conv[<sup>1</sup>](#refer-anchor-1) to support various rate in one single model. And the architecture is the same 
-as [2][<sup>2</sup>](#refer-anchor-2). However, I only use the single rate Encoder/Decoder with the same architecture as [2][<sup>2</sup>](#refer-anchor-2)
+A Pytorch Reproduction of Spatio-Temporal Entropy Model (STEM) for end-to-end leaned video compression.
 
 More details can be found in the following paper:
 
 >[Spatiotemporal Entropy Model is All You Need for Learned Video Compression](https://arxiv.org/abs/2104.06083)  
 >Alibaba Group, arxiv 2021.4.13  
 >Zhenhong Sun, Zhiyu Tan, Xiuyu Sun, Fangyi Zhang, Dongyang Li, Yichen Qian, Hao Li
+
+*Note that It Is Not An Official Implementation Code.*
+
+The differences with the original paper are not limited to the following:
+* The number of model channels are fewer.
+* The Encoder/Decoder in original paper consists of conditional conv[<sup>1</sup>](#refer-anchor-1) to support various rate in one single model. And the architecture is the same 
+as [2][<sup>2</sup>](#refer-anchor-2). However, I only use the single rate Encoder/Decoder with the same architecture as [2][<sup>2</sup>](#refer-anchor-2)
 
 ToDo:
 - [ ] 1. various rate model training and evaluation.
