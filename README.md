@@ -133,6 +133,10 @@ As stated in the original paper, they use a variable-rate auto-encoder to suppor
 Probably we need Loss Modulator[<sup>3</sup>](#refer-anchor-3) for various rate model training. Read Oren Ripple's ICCV 2021 paper[<sup>3</sup>](#refer-anchor-3) for more details.
 
 
+------------------------------
+2023.4.6
+I use sft in [4][<sup>4</sup>](#refer-anchor-4) to support variable-rate compression. As u can see in results, it has performance degradation in higher rate.
+
 # Acknowledgement
 
 The framework is based on CompressAI, I add the model in compressai.models.spatiotemporalpriors.
