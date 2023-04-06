@@ -1,6 +1,6 @@
 # Spatio-Temporal Entropy Model
 
-A Pytorch Reproduction of Spatio-Temporal Entropy Model (STEM) for end-to-end leaned video compression.
+A Pytorch reproduction of Spatio-Temporal Entropy Model (STEM) for end-to-end leaned video compression.
 
 More details can be found in the following paper:
 
@@ -15,8 +15,9 @@ The differences with the original paper are not limited to the following:
 * The Encoder/Decoder in original paper consists of conditional conv[<sup>1</sup>](#refer-anchor-1) to support various rate in one single model. And the architecture is the same 
 as [2][<sup>2</sup>](#refer-anchor-2). However, I only use the single rate Encoder/Decoder with the same architecture as [2][<sup>2</sup>](#refer-anchor-2)
 
-ToDo:
-- [ ] 1. various rate model training and evaluation.
+----------------------
+2023.4.6 update
+* Add training and evaluation script for variable-rate stem with sft module in [4][<sup>4</sup>](#refer-anchor-4).
 
 # Environment
 
@@ -140,6 +141,8 @@ And trainSTEM.py/evalSTEM.py is modified with reference to compressai_examples
 [2] [Joint Autoregressive and Hierarchical Priors for Learned Image Compression](https://arxiv.org/abs/1809.02736) 
 <div id="refer-anchor-3"></div>
 [3] [ELF-VC Efficient Learned Flexible-Rate Video Coding](https://arxiv.org/abs/2104.14335) 
+<div id="refer-anchor-4"></div>
+[4] ["Variable-Rate Deep Image Compression through Spatially-Adaptive Feature Transform"](https://arxiv.org/abs/2108.09551) (ICCV 2021).  [code](https://github.com/micmic123/QmapCompression)
 
 # Contact
 Feel free to contact me if there is any question about the code or to discuss any problems with image and video compression. (mxh_wine@qq.com)
