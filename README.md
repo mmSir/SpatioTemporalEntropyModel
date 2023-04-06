@@ -123,6 +123,10 @@ It seems that the context model SPM has no good effect in my experiments.
 
 I look forward to receiving more feedback on the test results, and feel free to share your test results!
 
+![results1](https://github.com/mmSir/SpatioTemporalEntropyModel/blob/master/results/rd_results/HEVC_B_psnr.png)
+
+![results2](https://github.com/mmSir/SpatioTemporalEntropyModel/blob/master/results/rd_results/UVG_psnr.png)
+
 # More Informations About Various Rate Model Training
 As stated in the original paper, they use a variable-rate auto-encoder to support various rate in one single model. I tried to train STEM with [GainedVAE](https://github.com/mmSir/GainedVAE), which is also a various rate model. Some point can achieve comparable r-d performance while others may degrade. What's more, the interpolation result could have more performance degradation cases.
 
@@ -142,7 +146,7 @@ And trainSTEM.py/evalSTEM.py is modified with reference to compressai_examples
 <div id="refer-anchor-3"></div>
 [3] [ELF-VC Efficient Learned Flexible-Rate Video Coding](https://arxiv.org/abs/2104.14335) 
 <div id="refer-anchor-4"></div>
-[4] ["Variable-Rate Deep Image Compression through Spatially-Adaptive Feature Transform"](https://arxiv.org/abs/2108.09551) (ICCV 2021).  [code](https://github.com/micmic123/QmapCompression)
+[4] ["Variable-Rate Deep Image Compression through Spatially-Adaptive Feature Transform"](https://arxiv.org/abs/2108.09551) (ICCV 2021)
 
 # Contact
 Feel free to contact me if there is any question about the code or to discuss any problems with image and video compression. (mxh_wine@qq.com)
