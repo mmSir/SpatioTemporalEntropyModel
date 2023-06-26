@@ -9,6 +9,7 @@ More details can be found in the following paper:
 >Zhenhong Sun, Zhiyu Tan, Xiuyu Sun, Fangyi Zhang, Dongyang Li, Yichen Qian, Hao Li
 
 *Note that It Is Not An Official Implementation Code.*
+See official code, click [here](https://github.com/tinyvision/IPCodec/tree/master)
 
 The differences with the original paper are not limited to the following:
 * The number of model channels are fewer.
